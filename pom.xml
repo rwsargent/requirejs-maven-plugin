@@ -7,22 +7,22 @@
         <version>7</version>
     </parent>
 
-	<groupId>com.github.bringking</groupId>
-	<artifactId>requirejs-maven-plugin</artifactId>
-	<name>RequireJS Maven Plugin</name>
-	<version>2.0.6-SNAPSHOT</version>
+	<groupId>com.github.rwsargent</groupId>
+	<artifactId>requirejs-maven-plugin-sm</artifactId>
+	<name>RequireJS Maven Plugin - SM</name>
+	<version>2.1.6-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
-	<url>https://github.com/stnor/requirejs-maven-plugin</url>
+	<url>https://github.com/rwsargent/requirejs-maven-plugin</url>
 
 	<description>
-        Maven plugin for RequireJS optimization
+        Maven plugin for RequireJS optimization, with a twist!
 	</description>
 
 	 <scm>
-	        <connection>scm:git:git://github.com/bringking/requirejs-maven-plugin.git</connection>
-	        <developerConnection>scm:git:git@github.com:bringking/requirejs-maven-plugin.git</developerConnection>
-	        <url>git://github.com/bringking/requirejs-maven-plugin.git</url>
+	        <connection>scm:git:git://github.com/rwsargent/requirejs-maven-plugin.git</connection>
+	        <developerConnection>scm:git:git@github.com:rwsargent/requirejs-maven-plugin.git</developerConnection>
+	        <url>git://github.com/rwsargent/requirejs-maven-plugin.git</url>
 	</scm>
 
 	<licenses>
@@ -43,6 +43,11 @@
             <id>stnor</id>
             <name>Stefan Norberg</name>
             <email>stefan@selessia.com</email>
+        </developer>
+        <developer>
+          <id>rwsargent</id>
+          <name>Ryan Sargent</name>
+          <email>rw.sarge@gmail.com</email>
         </developer>
     </developers>
 
@@ -98,6 +103,11 @@
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+          <groupId>com.google.code.gson</groupId>
+          <artifactId>gson</artifactId>
+          <version>2.8.0</version>
+        </dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
@@ -175,5 +185,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>
