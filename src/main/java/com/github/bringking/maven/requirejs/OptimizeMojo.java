@@ -21,6 +21,8 @@ import org.apache.maven.shared.filtering.MavenFilteringException;
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
 
+import com.github.bringking.maven.requirejs.sm.Skipper;
+
 /**
  * Mojo for running r.js optimization.
  *
@@ -130,13 +132,16 @@ public class OptimizeMojo extends AbstractMojo {
         }
 
         Runner runner = getRunner();
-
+        Skipper skipper = new Skipper(getLog());
         try {
             Optimizer builder = new Optimizer();
             ErrorReporter reporter = new MojoErrorReporter(getLog(), true);
 
             List<File> buildProfiles = createBuildProfile();
             for (File buildProfile : buildProfiles) {
+            	if(skipper.shouldSkip(buildProfile)) {
+            		continue;
+            	}
                 if (optimizerFile != null) {
                     if (this.optimizerParameters != null) {
                         builder.optimize(buildProfile, optimizerFile, reporter, runner, this.optimizerParameters);
