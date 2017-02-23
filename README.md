@@ -1,12 +1,5 @@
-## Deprecated/No Maintainer
-I no longer use this day to day and it has become something I can no longer maintain. Issues are closed on this repo, please feel
-free to reach out on twitter @TheBringKing if you need anything. I will keep the repo up for forks and clones.
-
-## Fork Notice
-
-The requirejs-maven-plugin is being maintained on another fork. Please refer to
-https://github.com/ChuanyuWang/requirejs-maven-plugin
-for up to date releases and bug fixes.
+## Preamble
+This this a fork off of the good work done by https://github.com/bringking/requirejs-maven-plugin, with just a little big extra to help my company manage their build times. There is only one added feature, highlighted below.
 
 # RequireJS maven plugin
 
@@ -135,6 +128,10 @@ An optional path to a nodejs executable. This should not be needed if node is in
 
 The path to the config file that will be passed to the r.js optimizer. This is equivalent to the -o argument when runing r.js from the command line.
 
+Changed: the config file is now read as json, not javascript. There can be an opening and closing paren outside of the object to support AMD, but no comments, etc. There is an extra field in the JSON object required, which is "cacheFile," which is a relative path to the cache file. 
+
+Hacky? You betchya. This is just to get us up and running. 
+
 **optimizerFile**
 
 The path to the optimizer script (r.js) that will be run to optimize your app. If not provided, a default version packaged with the plugin. (currently v2.1.4)
@@ -155,5 +152,3 @@ prefix those potions.
 
 If skip is set to true, optimization will be skipped. This may be useful for reducing build time if optimization is not needed.
 It can also be set via the command line with ```-Drequirejs.optimize.skip=true```.
-
-
