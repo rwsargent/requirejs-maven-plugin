@@ -69,7 +69,7 @@ public class OptimizeMojo extends AbstractMojo {
      * @parameter
      * @required
      */
-    private List<File> configFiles;
+    private List<String> configFiles;
 
     /**
      * Whether or not the config file should be maven filtered for token
@@ -128,6 +128,7 @@ public class OptimizeMojo extends AbstractMojo {
             List<File> buildProfiles = createBuildProfile();
             for (File buildProfile : buildProfiles) {
             	if(skipper.shouldSkip(buildProfile)) {
+            		getLog().info("Skipping minification!");
             		continue;
             	}
                 if (optimizerFile != null) {
@@ -245,7 +246,8 @@ public class OptimizeMojo extends AbstractMojo {
     private List<File> createBuildProfile() throws MojoExecutionException {
         if (filterConfig) {
             List<File> filteredConfig = new ArrayList<File>();
-            for (File configFile : configFiles) {
+            for (String configPath : configFiles) {
+            	File configFile = new File(configPath);
                 try {
                     File profileDir = new File(buildDirectory, "requirejs-config/");
                     profileDir.mkdirs();
@@ -265,7 +267,11 @@ public class OptimizeMojo extends AbstractMojo {
             }
             return filteredConfig;
         } else {
-            return configFiles;
+        	List<File> files = new ArrayList<>();
+        	for(String path : configFiles) {
+        		files.add(new File(path));
+        	}
+            return files;
         }
     }
 

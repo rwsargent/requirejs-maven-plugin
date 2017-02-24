@@ -98,6 +98,7 @@ public class Skipper {
 				mLogger.debug("No date for key: " + entry.getKey());
 			} else {
 				if (currentModification.compareTo(cachedModification) > 0) {
+					mLogger.info("Updated detected on: " + entry.getKey());
 					return true;
 				}
 			}

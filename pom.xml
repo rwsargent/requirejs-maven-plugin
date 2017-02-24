@@ -4,7 +4,7 @@
   <groupId>com.github.rwsargent</groupId>
   <artifactId>requirejs-maven-plugin-sm</artifactId>
   <name>RequireJS Maven Plugin - SM</name>
-  <version>2.1.6-SNAPSHOT</version>
+  <version>1.1.0</version>
   <packaging>maven-plugin</packaging>
 
   <url>https://github.com/rwsargent/requirejs-maven-plugin</url>
