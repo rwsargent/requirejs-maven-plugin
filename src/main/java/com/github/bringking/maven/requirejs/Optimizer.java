@@ -1,13 +1,14 @@
 package com.github.bringking.maven.requirejs;
 
-import org.codehaus.plexus.util.IOUtil;
-import org.mozilla.javascript.ErrorReporter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.codehaus.plexus.util.IOUtil;
+import org.mozilla.javascript.ErrorReporter;
 
 /**
  * Optimizes js files.
@@ -23,6 +24,7 @@ public class Optimizer {
      * @param buildProfile file containing optimizer build profile configuration
      * @param reporter error reporter
      * @param runner Runner which will execute the optimize script
+     * @param params - any extra parameters
      * @throws IOException if there is a problem reading/writing optimization files
      * @throws OptimizationException if the optimizer script returns an error status
      */
@@ -30,6 +32,15 @@ public class Optimizer {
         File optimizerFile = getClasspathOptimizerFile();
         optimize(buildProfile, optimizerFile, reporter, runner, params);
     }
+    
+    /**
+     * 
+     * @param buildProfile file containing optimizer build profile configuration
+     * @param reporter error reporter
+     * @param runner Runner which will execute the optimize script
+     * @throws IOException if there is a problem reading/writing optimization files
+     * @throws OptimizationException if the optimizer script returns an error status
+     */
     public void optimize(File buildProfile, ErrorReporter reporter, Runner runner) throws IOException, OptimizationException {
         File optimizerFile = getClasspathOptimizerFile();
         optimize(buildProfile, optimizerFile, reporter, runner);
@@ -65,6 +76,16 @@ public class Optimizer {
         	throw new OptimizationException("Optimizer returned non-zero exit status.");
         }
     }
+    
+    /**
+     * 
+     * @param buildProfile file containing optimizer build profile configuration
+     * @param optimizerFile - 
+     * @param reporter error reporter
+     * @param runner Runner which will execute the optimize script
+     * @throws IOException if there is a problem reading/writing optimization files
+     * @throws OptimizationException if the optimizer script returns an error status
+     */
     public void optimize(File buildProfile, File optimizerFile, ErrorReporter reporter, Runner runner) throws IOException, OptimizationException {
 
         String[] args = new String[2];

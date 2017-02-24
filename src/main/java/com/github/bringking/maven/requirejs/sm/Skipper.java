@@ -25,6 +25,11 @@ import org.apache.maven.plugin.logging.Log;
 
 import com.google.gson.Gson;
 
+/**
+ * Hacky way to cache the file times of client code, and only run the optimizer
+ * if a file has been updated since last build.  
+ * @author ryansargent
+ */
 public class Skipper {
 
 	private static final String PATH_DATE_DELIMITER = "|";
@@ -36,6 +41,12 @@ public class Skipper {
 		mLogger = logger;
 	}
 
+	/**
+	 * 
+	 * @param buildProfile - File where the build.js file used for r.js
+	 * @return - if the minify should or should not happen
+	 * @throws IOException - any number of file IO issues, GSON issues, etc.
+	 */
 	public boolean shouldSkip(File buildProfile) throws IOException {
 		Path srcDirectory = null;
 		File cacheFile = null;
@@ -46,7 +57,8 @@ public class Skipper {
 			srcDirectory = Paths.get(buildDirectory, profile.appDir, profile.baseUrl);
 			if (profile.cacheFile == null) {
 				mLogger.info("No cache file path provided");
-				shouldSkip = false;
+				mLogger.info(srcDirectory.toString());
+				return false;
 			}
 			cacheFile = Paths.get(buildDirectory, profile.cacheFile).toFile();
 			if (!cacheFile.exists()) {
@@ -83,7 +95,7 @@ public class Skipper {
 			Date currentModification = entry.getValue();
 			Date cachedModification = cached.get(entry.getKey());
 			if (cachedModification == null) {
-				System.out.println("No date for key: " + entry.getKey());
+				mLogger.debug("No date for key: " + entry.getKey());
 			} else {
 				if (currentModification.compareTo(cachedModification) > 0) {
 					return true;

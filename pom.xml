@@ -1,137 +1,131 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
+  <groupId>com.github.rwsargent</groupId>
+  <artifactId>requirejs-maven-plugin-sm</artifactId>
+  <name>RequireJS Maven Plugin - SM</name>
+  <version>2.1.6-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
 
-	<groupId>com.github.rwsargent</groupId>
-	<artifactId>requirejs-maven-plugin-sm</artifactId>
-	<name>RequireJS Maven Plugin - SM</name>
-	<version>2.1.6-SNAPSHOT</version>
-	<packaging>maven-plugin</packaging>
+  <url>https://github.com/rwsargent/requirejs-maven-plugin</url>
 
-	<url>https://github.com/rwsargent/requirejs-maven-plugin</url>
+  <description>
+    Maven plugin for RequireJS optimization, with a twist!
+  </description>
 
-	<description>
-        Maven plugin for RequireJS optimization, with a twist!
-	</description>
+  <scm>
+	<connection>scm:git:git://github.com/rwsargent/requirejs-maven-plugin.git</connection>
+	<developerConnection>scm:git:git@github.com:rwsargent/requirejs-maven-plugin.git</developerConnection>
+	<url>git://github.com/rwsargent/requirejs-maven-plugin.git</url>
+  </scm>
 
-	 <scm>
-	        <connection>scm:git:git://github.com/rwsargent/requirejs-maven-plugin.git</connection>
-	        <developerConnection>scm:git:git@github.com:rwsargent/requirejs-maven-plugin.git</developerConnection>
-	        <url>git://github.com/rwsargent/requirejs-maven-plugin.git</url>
-	</scm>
+  <licenses>
+	<license>
+	  <name>Creative Commons GNU LGPL, Version 2.1</name>
+	  <url>http://creativecommons.org/licenses/LGPL/2.1/</url>
+	  <distribution>repo</distribution>
+	</license>
+  </licenses>
 
-	<licenses>
-		<license>
-			<name>Creative Commons GNU LGPL, Version 2.1</name>
-			<url>http://creativecommons.org/licenses/LGPL/2.1/</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+  <developers>
+    <developer>
+      <id>charles</id>
+      <name>Charles King</name>
+      <email>charlesk@tucsonembedded.com</email>
+    </developer>
+    <developer>
+      <id>stnor</id>
+      <name>Stefan Norberg</name>
+      <email>stefan@selessia.com</email>
+    </developer>
+    <developer>
+      <id>rwsargent</id>
+      <name>Ryan Sargent</name>
+      <email>rw.sarge@gmail.com</email>
+    </developer>
+  </developers>
 
-    <developers>
-        <developer>
-            <id>charles</id>
-            <name>Charles King</name>
-            <email>charlesk@tucsonembedded.com</email>
-        </developer>
-        <developer>
-            <id>stnor</id>
-            <name>Stefan Norberg</name>
-            <email>stefan@selessia.com</email>
-        </developer>
-        <developer>
-          <id>rwsargent</id>
-          <name>Ryan Sargent</name>
-          <email>rw.sarge@gmail.com</email>
-        </developer>
-    </developers>
+  <dependencies>
+	<dependency>
+	  <groupId>org.apache.maven</groupId>
+	  <artifactId>maven-plugin-api</artifactId>
+	  <version>2.1.0</version>
+	  <scope>provided</scope>
+	</dependency>
+	<dependency>
+	  <groupId>org.apache.maven</groupId>
+	  <artifactId>maven-project</artifactId>
+	  <version>2.1.0</version>
+	  <scope>provided</scope>
+	</dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-filtering</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mozilla</groupId>
+      <artifactId>rhino</artifactId>
+      <version>1.7R4</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>com.google.javascript</groupId>
+      <artifactId>closure-compiler</artifactId>
+      <version>v20131014</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-exec</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+	<dependency>
+	  <groupId>junit</groupId>
+	  <artifactId>junit</artifactId>
+	  <version>4.11</version>
+	  <type>jar</type>
+	  <scope>test</scope>
+	</dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.0</version>
+    </dependency>
+	<dependency>
+	  <groupId>org.mockito</groupId>
+	  <artifactId>mockito-all</artifactId>
+	  <version>1.9.0-rc1</version>
+	  <type>jar</type>
+	  <scope>test</scope>
+	</dependency>
+  </dependencies>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-			<version>2.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-project</artifactId>
-			<version>2.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-        <dependency>
-            <groupId>org.apache.maven.shared</groupId>
-            <artifactId>maven-filtering</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-utils</artifactId>
-          <version>2.0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mozilla</groupId>
-            <artifactId>rhino</artifactId>
-            <version>1.7R4</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.google.javascript</groupId>
-            <artifactId>closure-compiler</artifactId>
-            <version>v20131014</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-exec</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<type>jar</type>
-			<scope>test</scope>
-		</dependency>
-        <dependency>
-          <groupId>com.google.code.gson</groupId>
-          <artifactId>gson</artifactId>
-          <version>2.8.0</version>
-        </dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.0-rc1</version>
-			<type>jar</type>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-    <build>
-      <pluginManagement>
-        <plugins>
+  <build>
+    <pluginManagement>
+      <plugins>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.3.2</version>
           <configuration>
-            <source>1.6</source>
-            <target>1.6</target>
+            <source>1.8</source>
+            <target>1.8</target>
             <showDeprecation>true</showDeprecation>
             <showWarnings>true</showWarnings>
           </configuration>
-          </plugin>
-        </plugins>
-      </pluginManagement>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -154,35 +148,87 @@
         </executions>
       </plugin>
     </plugins>
-    </build>
+  </build>
 
-    <profiles>
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+  <profiles>
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.9.1</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.7</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>false</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>

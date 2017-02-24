@@ -1,10 +1,7 @@
 package com.github.bringking.maven.requirejs;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +50,7 @@ public class OptimizeMojo extends AbstractMojo {
     private File buildDirectory;
 
     /**
-     * @parameter expression="${session}"
+     * @parameter property="session"
      * @required
      * @readonly
      */
@@ -78,30 +75,21 @@ public class OptimizeMojo extends AbstractMojo {
      * Whether or not the config file should be maven filtered for token
      * replacement.
      *
-     * @parameter default-value=false
+     * @parameter(defaultValue=false)
      */
     private boolean filterConfig;
 
     /**
-     * If the 'deps' parameter in the config file should be generated
-     * automatically from the contents of this folder
-     *
-     * @parameter
-     * @required
-     */
-    private File fillDepsFromFolder;
-
-    /**
      * Skip optimization when this parameter is true.
      *
-     * @parameter expression="${requirejs.optimize.skip}" default-value=false
+     * @parameter(property="requirejs.optimize.skip" defaultValue=false)
      */
     private boolean skip;
 
     /**
      * Defines which javascript engine to use. Possible values: rhino or nodejs.
      *
-     * @parameter expression="${requirejs.optimize.runner}" default-value=nodejs
+     * @parameter(property="requirejs.optimize.runner" defaultValue= "nodejs")
      */
     private String runner = "nodejs";
 
@@ -256,10 +244,6 @@ public class OptimizeMojo extends AbstractMojo {
     @SuppressWarnings("rawtypes")
     private List<File> createBuildProfile() throws MojoExecutionException {
         if (filterConfig) {
-            String scannedDepList = null;
-            if (fillDepsFromFolder != null) {
-                scannedDepList = scanChildren(fillDepsFromFolder.toURI(), fillDepsFromFolder);
-            }
             List<File> filteredConfig = new ArrayList<File>();
             for (File configFile : configFiles) {
                 try {
@@ -272,16 +256,6 @@ public class OptimizeMojo extends AbstractMojo {
                     // TODO hardcoded encoding
                     mavenFileFilter.copyFile(configFile, currentFilteredConfig, true, project, new ArrayList(), true, "UTF8", session);
 
-                    if (scannedDepList != null) {
-                        RandomAccessFile raf = new RandomAccessFile(currentFilteredConfig, "rw");
-                        byte[] buffer = new byte[(int) raf.length()];
-                        raf.readFully(buffer);
-                        buffer = new String(buffer).replace("${scanFolder}", scannedDepList).getBytes();
-                        raf.seek(0);
-                        raf.write(buffer);
-                        raf.close();
-                    }
-
                     filteredConfig.add(currentFilteredConfig);
                 } catch (IOException e) {
                     throw new MojoExecutionException("Error creating filtered build file.", e);
@@ -293,32 +267,6 @@ public class OptimizeMojo extends AbstractMojo {
         } else {
             return configFiles;
         }
-    }
-
-    private String scanChildren(URI referenceURI, File currentFolder) {
-        File[] files = currentFolder.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File file) {
-                return file.getName().endsWith(".js") || file.isDirectory();
-            }
-        });
-
-        StringBuilder ret = new StringBuilder();
-        String separator = "";
-        if (files != null) {
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    ret.append(separator).append(scanChildren(referenceURI, file));
-                } else {
-                    String relativePath = referenceURI.relativize(file.toURI()).getPath();
-                    String relativePathWithoutExtension = relativePath.substring(0, relativePath.lastIndexOf('.'));
-                    ret.append(separator).append("\"").append(relativePathWithoutExtension).append("\"");
-                }
-                separator = ",";
-            }
-        }
-
-        return ret.toString();
     }
 
     private String getNodeJsPath() {
